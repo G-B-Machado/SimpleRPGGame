@@ -29,6 +29,41 @@ class monstro_{
     }
 }
 
+function criarMonstro(monstros){
+    while(monstros.length<10){
+        monstros.push(new monstro_(Math.floor(Math.random()*1000)+1000))
+        monstros[idMonstros].gerarAtributos();
+        idMonstros++;
+    }
+}
+
+function criarPersonagem(nome, experiencia){
+    const personagem = new personagem_(nome, experiencia);
+    personagem.gerarAtributos();
+    return personagem
+}
+
+function verificarClassificacao(xp){
+    console.log(xp)
+    if(xp < 1000){
+        return "Você concluiu o jogo no nivel Ferro"
+    }else if(xp >= 1001 && xp <= 2000){
+        return "Você concluiu o jogo no nivel  Bronze"
+    }else if(xp >= 2001 && xp <= 5000){
+        return "Você concluiu o jogo no nivel  Prata"
+    }else if(xp >= 6001 && xp <= 7000){
+        return "Você concluiu o jogo no nivel  Ouro"
+    }else if(xp >= 7001 && xp <= 8000){
+        return "Você concluiu o jogo no nivel  Platina"
+    }else if(xp >= 8001 && xp <= 9000){
+        return "Você concluiu o jogo no nivel  Ascendente"
+    }else if(xp >= 9001 && xp <= 10000){
+        return "Você concluiu o jogo no nivel  Imortal"
+    }else if(xp >10001){
+        return "Você concluiu o jogo no nivel  Radiante"
+    }
+}
+
 //funções do sistema
 function batalha(personagem,monstros){
     let somaAtributoPersonagem = 0;
@@ -64,41 +99,17 @@ function batalha(personagem,monstros){
             break;
         }
     }
-    console.log("soma-----")
-    console.log(somaAtributoPersonagem)
-    console.log(somaAtributoMonstro)
 }
 
 //criação dos monstros
-while(monstros.length<10){
-    monstros.push(new monstro_(Math.floor(Math.random()*1000)+1000))
-    monstros[idMonstros].gerarAtributos();
-    idMonstros++;
-}
+criarMonstro(monstros);
 
 console.log(msgInicial)
 console.log(msgCriacaoPersonagem)
 console.log(info)
 
-//geração dos monstros
-let personagem1= new personagem_(readlineSync.question("Digite seu nome:"), 0)
-personagem1.gerarAtributos();
+//criação do personagem
+let personagem1 = criarPersonagem(readlineSync.question("Digite seu nome:"), 0);
 batalha(personagem1,monstros);
 
-if(personagem1.experiencia < 1000){
-    console.log("Você concluiu o jogo no nivel Ferro")
-}else if(personagem1.experiencia >= 1001 && personagem1.experiencia <= 2000){
-    console.log("Você concluiu o jogo no nivel  Bronze")
-}else if(personagem1.experiencia >= 2001 && personagem1.experiencia <= 5000){
-    console.log("Você concluiu o jogo no nivel  Prata")
-}else if(personagem1.experiencia >= 6001 && personagem1.experiencia <= 7000){
-    console.log("Você concluiu o jogo no nivel  Ouro")
-}else if(personagem1.experiencia >= 7001 && personagem1.experiencia <= 8000){
-    console.log("Você concluiu o jogo no nivel  Platina")
-}else if(personagem1.experiencia >= 8001 && personagem1.experiencia <= 9000){
-    console.log("Você concluiu o jogo no nivel  Ascendente")
-}else if(personagem1.experiencia >= 9001 && personagem1.experiencia <= 10000){
-    console.log("Você concluiu o jogo no nivel  Imortal")
-}else if(personagem1.experiencia >10001){
-    console.log("Você concluiu o jogo no nivel  Radiante")
-}
+console.log(verificarClassificacao(personagem1.experiencia));
